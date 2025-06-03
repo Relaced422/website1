@@ -6,6 +6,6 @@
     <title>Tobiets</title>
 </head>
 <body>
-    
+    <?php include("db.php"); ?> <!-- Verbind met de database -->
 </body>
 </html>
