@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tobiets</title>
     <link rel="stylesheet" href="assets/css/style.css"> <!-- Verwijzing naar CSS -->
 </head>
-<body>
 
-    <!-- Header -->
-    <div class="header">
-        <button>Menu</button>
-        <div class="center">Deze is verborgen</div>
-        <button>Admin</button>
-        <button>Login</button>
-    </div>
+<body>
+    <?php include("includes/header.php"); ?>
+
 
     <!-- Sections -->
     <button class="section-button">Voorgerecht ⌄</button>
