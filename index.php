@@ -14,11 +14,10 @@
 
     <!-- Sections -->
     <button class="section-button">Voorgerecht ⌄</button>
-    <div class="menu-container">
         <?php
         include("dbcalls/menu_overzicht.php");
         ?>
-    </div>
+
 
     <button class="section-button">Hoofdgerecht ⌄</button>
     <button class="section-button">Snacks ⌄</button>

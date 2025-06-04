@@ -1,9 +1,17 @@
 .menu-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #000;
+    width: 90vw;
 }
 .menu-item {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 30vw;
     background-color: #fff;
     padding: 15px;
     border-radius: 8px;
@@ -34,9 +42,8 @@ body {
   padding: 0;
   background-color: #d9c4a2;
   font-family: 'Comic Sans MS', sans-serif;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    padding: 20px;
+  background-color: #f4f4f4;
+  padding: 20px;
 }
 
 a {
