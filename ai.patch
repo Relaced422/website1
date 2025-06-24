@@ -1,0 +1,189 @@
+diff --git a/README.md b/README.md
+index e6d07428c4924aabb9805b41138818db6bff6ff8..694d9728149cdeae361391fba330ea6861c4c7c7 100644
+--- a/README.md
++++ b/README.md
+@@ -1,2 +1,6 @@
+ # website1
+ Current project: Menukaart
++
++## Beheer
++
++Start de containers met `docker-compose up` en bezoek `http://localhost:8080/admin.php` om menu items toe te voegen of te bewerken.
+diff --git a/admin.php b/admin.php
+new file mode 100644
+index 0000000000000000000000000000000000000000..3c122e338217f6a913eca28efe6ad81c2effba6e
+--- /dev/null
++++ b/admin.php
+@@ -0,0 +1,47 @@
++<?php
++require_once 'db.php';
++include 'includes/header.php';
++
++// Handle delete action
++if (isset($_GET['delete'])) {
++    $id = (int)$_GET['delete'];
++    $stmt = $pdo->prepare('DELETE FROM menu_items WHERE id = ?');
++    $stmt->execute([$id]);
++    header('Location: admin.php');
++    exit;
++}
++
++$stmt = $pdo->query('SELECT * FROM menu_items ORDER BY id DESC');
++?>
++<!DOCTYPE html>
++<html lang="nl">
++<head>
++    <meta charset="UTF-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1.0">
++    <title>Menu beheren</title>
++    <link rel="stylesheet" href="assets/css/style.css">
++</head>
++<body>
++<h1>Menu Items beheren</h1>
++<p><a href="edit_item.php">Nieuw item toevoegen</a></p>
++<table border="1" cellpadding="5" cellspacing="0">
++    <tr>
++        <th>Titel</th>
++        <th>Beschrijving</th>
++        <th>Prijs</th>
++        <th>Acties</th>
++    </tr>
++<?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) : ?>
++    <tr>
++        <td><?php echo htmlspecialchars($row['title']); ?></td>
++        <td><?php echo htmlspecialchars($row['description']); ?></td>
++        <td>€ <?php echo number_format($row['price'], 2, ',', '.'); ?></td>
++        <td>
++            <a href="edit_item.php?id=<?php echo $row['id']; ?>">Bewerken</a> |
++            <a href="admin.php?delete=<?php echo $row['id']; ?>" onclick="return confirm('Weet je het zeker?');">Verwijderen</a>
++        </td>
++    </tr>
++<?php endwhile; ?>
++</table>
++</body>
++</html>
+diff --git a/assets/img/logo.png b/assets/img/logo.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..13e33451f67f1041b5d74d61bb06b071b09ca063
+GIT binary patch
+literal 70
+zcmeAS@N?(olHy`uVBq!ia0vp^j3CUx1|;Q0k8}blAx{^_kcwN$f6gBW;Add{&-Bl-
+SO_vEM!QkoY=d#Wzp$P!ba1bT{
+
+literal 0
+HcmV?d00001
+
+diff --git a/db.php b/db.php
+index 17b26ce34bc05c701cd230c2a5b5238ccfcaabb0..b36fd829b542ed31744d8e25b72c270abffe6299 100644
+--- a/db.php
++++ b/db.php
+@@ -1,14 +1,13 @@
+ <?php
+ $host = 'db'; // Docker servicenaam
+ $dbname = 'menukaart';
+ $username = 'admin';
+ $password = 'admin123';
+ 
+ try {
+     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+-    echo "Verbinding geslaagd!";
+ } catch (PDOException $e) {
+     die("Verbinding mislukt: " . $e->getMessage());
+ }
+ ?>
+\ No newline at end of file
+diff --git a/edit_item.php b/edit_item.php
+new file mode 100644
+index 0000000000000000000000000000000000000000..b05db7a28b96c87f511346296022f582de121852
+--- /dev/null
++++ b/edit_item.php
+@@ -0,0 +1,69 @@
++<?php
++require_once 'db.php';
++
++// Determine if editing existing item
++$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
++$editing = $id > 0;
++$title = $description = $price = $image = '';
++
++if ($editing) {
++    $stmt = $pdo->prepare('SELECT * FROM menu_items WHERE id = ?');
++    $stmt->execute([$id]);
++    $item = $stmt->fetch(PDO::FETCH_ASSOC);
++    if ($item) {
++        $title = $item['title'];
++        $description = $item['description'];
++        $price = $item['price'];
++        $image = $item['image'];
++    }
++}
++
++if ($_SERVER['REQUEST_METHOD'] === 'POST') {
++    $title = $_POST['title'];
++    $description = $_POST['description'];
++    $price = $_POST['price'];
++    $image = $_POST['image'];
++
++    if ($editing) {
++        $stmt = $pdo->prepare('UPDATE menu_items SET title=?, description=?, price=?, image=? WHERE id=?');
++        $stmt->execute([$title, $description, $price, $image, $id]);
++    } else {
++        $stmt = $pdo->prepare('INSERT INTO menu_items (title, description, price, image) VALUES (?, ?, ?, ?)');
++        $stmt->execute([$title, $description, $price, $image]);
++    }
++    header('Location: admin.php');
++    exit;
++}
++?>
++<!DOCTYPE html>
++<html lang="nl">
++<head>
++    <meta charset="UTF-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1.0">
++    <title><?php echo $editing ? 'Item bewerken' : 'Nieuw item'; ?></title>
++    <link rel="stylesheet" href="assets/css/style.css">
++</head>
++<body>
++<h1><?php echo $editing ? 'Item bewerken' : 'Nieuw item toevoegen'; ?></h1>
++<form method="post">
++    <div>
++        <label>Titel</label><br>
++        <input type="text" name="title" value="<?php echo htmlspecialchars($title); ?>" required>
++    </div>
++    <div>
++        <label>Beschrijving</label><br>
++        <textarea name="description" required><?php echo htmlspecialchars($description); ?></textarea>
++    </div>
++    <div>
++        <label>Prijs</label><br>
++        <input type="number" step="0.01" name="price" value="<?php echo htmlspecialchars($price); ?>" required>
++    </div>
++    <div>
++        <label>Afbeelding URL</label><br>
++        <input type="text" name="image" value="<?php echo htmlspecialchars($image); ?>">
++    </div>
++    <button type="submit">Opslaan</button>
++    <a href="admin.php">Annuleren</a>
++</form>
++</body>
++</html>
+diff --git a/includes/header.php b/includes/header.php
+index e7f844c377c8cadb7f8ee9bcc6ee6cbc565f2ff1..bba40c24b51e821b5149a2972cdcd8363a3a1d9d 100644
+--- a/includes/header.php
++++ b/includes/header.php
+@@ -1,12 +1,12 @@
+ <header>
+     <div class="header__logo">
+         <a href="/"><img src="/assets/img/logo.png" alt="Logo"></a>
+     </div>
+     <nav class="header__nav">
+         <ul>
+             <li><a href="/">Menu</a></li>
+-            <li><a href="/about">admin</a></li>
++            <li><a href="/admin.php">Admin</a></li>
+             <li><a href="/services">login</a></li>
+         </ul>
+     </nav>
+ </header>
+\ No newline at end of file
