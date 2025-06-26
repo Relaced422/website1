@@ -1,0 +1,66 @@
+commit d3113f4a4bd4435bda1e9724316ce0ca6e69e842
+Author: Relaced422 <optquenum@gmail.com>
+Date:   Tue Jun 24 11:36:51 2025 +0200
+
+    Initial AI commit
+
+commit 9f47b6f26c4660668d11ceb36cce98941bb55cc4
+Author: Relaced422 <optquenum@gmail.com>
+Date:   Sun Jun 15 15:28:21 2025 +0200
+
+    Dubbele php verwijderd
+
+commit 811c243462fa34bd5733faf6932e56ff72408d77
+Author: Relaced422 <optquenum@gmail.com>
+Date:   Wed Jun 4 06:30:00 2025 +0200
+
+    Menu layout fixed
+
+commit c59075a14c027064affda3e69cc7453baf93000e
+Author: Relaced422 <optquenum@gmail.com>
+Date:   Tue Jun 3 12:44:13 2025 +0200
+
+    Index.php aangepast betere code overzicht
+
+commit 4a18d80e15ec401640941948c3cbbfea525aa9d7
+Author: Relaced422 <optquenum@gmail.com>
+Date:   Tue Jun 3 12:07:45 2025 +0200
+
+    Database connectie opgezet
+
+commit 097e0b3db9483a488197427ed771c9317c11ce9b
+Author: Relaced422 <optquenum@gmail.com>
+Date:   Tue Jun 3 10:50:39 2025 +0200
+
+    Header PHP issue fixed
+
+commit 90cc902b8f7969c64bea77cd7b448cd68de9a772
+Merge: 4248810 1b90666
+Author: Relaced422 <optquenum@gmail.com>
+Date:   Mon Jun 2 12:07:39 2025 +0200
+
+    Docker Added
+
+commit 42488103c2d07416a9c560e578232202e11dd308
+Author: Relaced422 <optquenum@gmail.com>
+Date:   Mon Jun 2 12:04:57 2025 +0200
+
+    Docker compatibility added
+
+commit 1b9066663eea2883bbed5d01b072057372fa0c67
+Author: Relaced422 <145910526+Relaced422@users.noreply.github.com>
+Date:   Mon Jun 2 11:47:28 2025 +0200
+
+    Update README.md
+
+commit a70b0fddaf56c577d33544b2dab4a1ec0c4abc94
+Author: Relaced422 <optquenum@gmail.com>
+Date:   Mon Jun 2 11:45:39 2025 +0200
+
+    First Commit
+
+commit 4dfa208865db0ea7d36f353bd5c5f3dd067a69fc
+Author: Relaced422 <145910526+Relaced422@users.noreply.github.com>
+Date:   Mon Jun 2 11:28:08 2025 +0200
+
+    Initial commit

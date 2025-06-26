@@ -5,7 +5,7 @@
     <nav class="header__nav">
         <ul>
             <li><a href="/">Menu</a></li>
-            <li><a href="/about">admin</a></li>
+            <li><a href="/admin.php">Admin</a></li>
             <li><a href="/services">login</a></li>
         </ul>
     </nav>
