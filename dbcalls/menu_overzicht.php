@@ -2,7 +2,7 @@
 require_once 'db.php';
 ?>
 
-    <h1>Menukaart</h1>
+    <div class="menukaart-titel"><h1>Menukaart</h1></div>
 
     <div class="menu-container">
         <?php
