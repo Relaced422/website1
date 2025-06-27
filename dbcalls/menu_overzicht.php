@@ -3,7 +3,7 @@ require_once 'db.php';
 ?>
     <div class="menu-container">
         <div class="menu-titel"><h1>Hoofdgerechten</h1></div>
-        
+
         <?php
         $stmt = $pdo->query("SELECT * FROM menu_items_v ORDER BY id DESC");
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -11,7 +11,7 @@ require_once 'db.php';
             if (!empty($row['image'])) {
                 echo '<img src="' . htmlspecialchars($row['image']) . '" alt="' . htmlspecialchars($row['title']) . '">';
             } else {
-                echo '<img src="placeholder.jpg" alt="Geen afbeelding">';
+                echo '<img src="./assets/img/placeholder.png" alt="Geen afbeelding">';
             }
            
             echo '<h1>' . htmlspecialchars($row['title']) . '</h1>';
@@ -31,7 +31,7 @@ require_once 'db.php';
             if (!empty($row['image'])) {
                 echo '<img src="' . htmlspecialchars($row['image']) . '" alt="' . htmlspecialchars($row['title']) . '">';
             } else {
-                echo '<img src="placeholder.jpg" alt="Geen afbeelding">';
+                echo '<img src="placeholder.png" alt="Geen afbeelding">';
             }
            
             echo '<h1>' . htmlspecialchars($row['title']) . '</h1>';
@@ -51,7 +51,7 @@ require_once 'db.php';
             if (!empty($row['image'])) {
                 echo '<img src="' . htmlspecialchars($row['image']) . '" alt="' . htmlspecialchars($row['title']) . '">';
             } else {
-                echo '<img src="placeholder.jpg" alt="Geen afbeelding">';
+                echo '<img src="placeholder.png" alt="Geen afbeelding">';
             }
            
             echo '<h1>' . htmlspecialchars($row['title']) . '</h1>';
